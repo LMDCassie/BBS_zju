@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	<title>ZJU交流论坛用户注册</title>
+	<meta name="keywords" content="关键字列表" />
+	<meta name="description" content="网页描述" />
+	<link rel="stylesheet" type="text/css" href="../public/css/public.css" />
+	<link rel="stylesheet" type="text/css" href="../public/css/register.css" />
+	<style type="text/css"></style>
+	<script type="text/javascript"></script>
+</head>
+<body>
+	<div class="header_wrap">
+		<div id="header" class="auto">
+			<div class="logo">ZJU交流论坛</div>
+			<div class="nav">
+				<a class="hover" href="../">首页</a>
+				<a href="./publish.html">发帖</a>
+				<a href="./announcement.html">发公告</a>
+			</div>
+			<div class="serarch">
+				<form>
+					<input class="keyword" type="text" name="keyword" placeholder="搜索一下~" /> <!--需要增加下拉框，按照功能进行帖子检索。待修改！！-->
+					<input class="submit" type="submit" name="submit" value="" />
+				</form>
+			</div>
+
+			<div class="login" style="width: 400px;">
+			<!-- 用户信息登录判断，根据是否登录来显示不同的链接按钮。待修改！！ -->
+				<?php  
+				  	if(isset($_COOKIE['user'])) {  
+						<a href="../model/userInfo.php">欢迎！</a> &nbsp;&nbsp;&nbsp;&nbsp;  <!--“欢迎！”需要设置超链接到用户信息页面。待修改！！-->
+						<a href="../">退出</a>;
+				  	}
+				  	else {
+						<a href="./login.html">登录</a> &nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="./register.html">注册</a>
+				  	} 
+				?>
+			</div>
+		</div>
+	</div>
+	
+	<div style="margin-top:100px;"></div>
+	<div id="register" class="auto">
+		<h2>欢迎成为ZJU交流论坛的一员！</h2>
+		<form action='../model/register_deal.php' method= "POST" >
+			<label>用户名：<input type="text" name='user_name' /><span>*6-16位，请使用英文字母、数字</span></label>
+			<label>密码：<input type="password" name='user_password1' /><span>*6-16位，请使用英文字母、数字，注意区分大小写</span></label>
+			<label>确认密码：<input type="password" name='user_password2' /><span>*两次输入的密码必须一致</span></label>
+			<label>验证码：<input name="vcode" type="text"  /><span>*请输入下方验证码</span></label>
+			<img class="vcode" src="../public/image/show_code.php.jpg" />
+			<div style="clear:both;"></div>
+			<input class="btn" type="submit" value="注册" />  <!-- 需判断用户是否成功注册。待修改！！ -->
+		</form>
+	</div>
+	<div id="footer" class="auto">
+		<div class="bottom">
+			<a>ZJU交流论坛</a>
+		</div>
+		<div class="copyright">Copyright © 2020 ZJU交流论坛 v1.1.0</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	<title>帖子详情</title>
+	<meta name="keywords" content="关键字列表" />
+	<meta name="description" content="网页描述" />
+	<link rel="stylesheet" type="text/css" href="../public/css/public.css" />
+	<link rel="stylesheet" type="text/css" href="../public/css/show.css" />
+	<style type="text/css"></style>
+	<script type="text/javascript"></script>
+</head>
+
+<body>
+	<div class="header_wrap">
+		<div id="header" class="auto">
+			<div class="logo">ZJU交流论坛</div>
+			<div class="nav">
+				<a class="hover" href="../">首页</a>
+				<a href="./publish.html">发帖</a>
+				<a href="./announcement.html">发公告</a>
+			</div>
+			<div class="serarch">
+				<form>
+					<input class="keyword" type="text" name="keyword" placeholder="搜索一下~" /> <!--需要增加下拉框，按照功能进行帖子检索。待修改！！-->
+					<input class="submit" type="submit" name="submit" value="" />
+				</form>
+			</div>
+
+			<div class="login" style="width: 400px;">
+			<!-- 用户信息登录判断，根据是否登录来显示不同的链接按钮。待修改！！ -->
+				<?php  
+				  	if(isset($_COOKIE['user'])) {
+				  		echo '<a href="./userInfo.php">&nbsp;欢迎会员' . ' ' . $_COOKIE['user'] . '</a>' . ' ' . '<a href="./logout.php?page=list_father">注销</a>';
+				  }else {
+				  	    echo '<a href="./login.php">&nbsp;' . '登录' . '</a>' . ' ' . '<a href="./register.php">注册</a>&nbsp;';
+				} 
+				   ?>
+			</div>
+		</div>
+	</div>
+
+	<div style="margin-top:100px;"></div>
+	<div id="position" class="auto">
+		 <b><a href="../">首页</a> &gt; <a href="./list_father.php">返回上一级</a></b> <!-- 根据帖子所在的版面返回相应的版面列表。待修改！！ -->
+	</div>
+	<div id="main" class="auto">
+		<div class="wrap1">
+			<a class="btn reply" href="../model/reply.php?pub_id=<?php echo $row['PID']; ?>"></a>
+			<div style="clear:both;"></div>
+		</div>	
+
+		<!-- 需从数据库中获取相关的帖子信息、用户信息。待修改！！ -->
+		<?php if($pageNum == 1) : ?>
+		<div class="wrapContent">
+			<div class="left">
+				<div class="face">
+					<a target="_blank" href="">
+						<img src="../public/image/头像2.png" />
+					</a>
+				</div>
+				<div class="name">
+					<a href=""><?php echo $row['POwner']; ?></a>
+				</div>
+			</div>
+
+			<div class="right">
+				<div class="title">
+					<b><h1><?php echo $row['PTitle']; ?></h1></b>
+					<span>浏览：<?php echo $row['PHits']; ?>&nbsp;&nbsp;&nbsp;回帖：<?php echo $rowCount ?></span>
+					<div style="clear:both;"></div>
+				</div>
+				<div class="pubdate">
+					<span class="date">发布于：<?php echo date('Y-m-d H:i:s', $row['PTime']); ?> </span>
+					<b><span class="floor" style="color:#6495ED" font-size="15px">作者</span></b>
+				</div>
+				<div class="content">
+					 <?php echo $row['PContent']; ?>
+				</div>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+		<?php endIf; ?>
+
+		<?php $i=5*$pageNum-4;while($rep_row = $rep_result->fetch_assoc() ) : ?>
+		<div class="wrapContent">
+			<div class="left">
+				<div class="face">
+					<a target="_blank" href="">
+						<img src="../public/image/头像1.png" />
+					</a>
+				</div>
+				<div class="name">
+					<a href=""><?php echo $rep_row['RUser']; ?></a>
+				</div>
+			</div>
+
+			<div class="right">
+				<div class="pubdate">
+					<span class="date">回复时间：<?php echo date('Y-m-d H:i:s', $rep_row['RTime']); ?></span>
+					<span class="floor"><?php echo $i++;?>1楼&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">引用</a></span>
+				</div>
+				<div class="content">
+					<?php echo $rep_row['RContent']; ?>
+					
+				</div>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+		<?php endWhile; ?>
+
+		<div class="wrapContent">
+			<div class="left">
+				<div class="face">
+					<a target="_blank" data-uid="2374101" href="">
+						<img src="../public/image/头像5.jpg" />
+					</a>
+				</div>
+				<div class="name">
+					<a href=""><?php echo $rep_row['RUser']; ?></a>
+				</div>
+			</div>
+
+			<div class="right">
+				<div class="pubdate">
+					<span class="date">回复时间：2020-6-1 18:04</span>
+					<span class="floor">2楼&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">引用</a></span>
+				</div>
+				<div class="content">
+					<div class="quote">
+					<h2>引用 1楼 匿名 发表的: </h2>
+					没想到我竟然抢到沙发啦！哈哈！
+					</div>
+					我来了，板凳是我的！
+				</div>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+		<div class="reply_bottom"><a href="../model/reply.php?pub_id=<?php echo $row['PID']; ?>"><img src="../public/image/回复按钮.png" height="35" width="75"></a></div><br/>
+
+	<div id="footer" class="auto">
+		<div class="bottom">
+			<a>ZJU交流论坛</a>
+		</div>
+		<div class="copyright">Copyright © 2020 ZJU交流论坛 v1.1.0</div>
+	</div>
+</body>
+</html>

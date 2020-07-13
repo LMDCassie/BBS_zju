@@ -1,0 +1,41 @@
+create database bbs1;
+
+use bbs1;
+
+create table User(
+	UID int unsigned primary key auto_increment comment '����ID',
+	UName varchar(20) not null unique key comment '�û���',
+	UPassword char(32) not null comment '�û�����',
+	UPriority ENUM('Admin','User') not null comment '�û�Ȩ��'
+);
+
+create table Announcement(
+	AID int unsigned primary key auto_increment comment '����ID',
+	ATitle varchar(50) not null comment '֪ͨ����',
+	AContent text not null comment '֪ͨ����',
+	AOwner varchar(20) not null comment '��֪ͨ��'
+);
+
+create table Session(
+	SID int unsigned primary key auto_increment comment '����ID',
+	SName varchar(20) not null comment '������'
+);
+
+create table Post(
+	PID int unsigned primary key auto_increment comment '����ID',
+	PTitle varchar(50) not null comment '��������',
+	PContent text not null comment '��������',
+	POwner varchar(20) not null comment '������',
+	PSession varchar(20) not null comment '��������',
+	PTime int unsigned not null comment '����ʱ��',
+	pHits int unsigned not null comment '�������'
+);
+
+create table Reply(
+	Rid int unsigned primary key auto_increment comment '����ID',
+	RPostID int unsigned not null comment '���,ָ������˵�ID',
+	RUser varchar(20) not null comment '�ظ���',
+	RContent text not null comment '�ظ�����',
+	RTime int unsigned not null comment '�ظ���ʱ���'
+);
+

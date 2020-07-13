@@ -1,0 +1,78 @@
+<?php session_start(); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	<title>ZJU交流论坛发帖</title>
+	<meta name="keywords" content="关键字列表" />
+	<meta name="description" content="网页描述" />
+	<link rel="stylesheet" type="text/css" href="../public/css/public.css" />
+	<link rel="stylesheet" type="text/css" href="../public/css/publish.css" />
+	<style type="text/css"></style>
+	<script type="text/javascript"></script>
+</head>
+
+<body>
+	<div class="header_wrap">
+		<div id="header" class="auto">
+			<div class="logo">ZJU交流论坛</div>
+			<div class="nav">
+				<a class="hover" href="../index.php">首页</a>
+				<a href="./publish.html">发帖</a>
+				<a href="./announcement.html">发公告</a>
+			</div>
+			<div class="serarch">
+				<form>
+					<input class="keyword" type="text" name="keyword" placeholder="搜索一下~" /> <!--需要增加下拉框，按照功能进行帖子检索。待修改！！-->
+					<input class="submit" type="submit" name="submit" value="" />
+				</form>
+			</div>
+
+			<div class="login" style="width: 400px;">
+			<!-- 用户信息登录判断，根据是否登录来显示不同的链接按钮。待修改！！ -->
+				<?php  
+				  	if(isset($_COOKIE['user'])) {  
+						<a href="../model/userInfo.php">欢迎！</a> &nbsp;&nbsp;&nbsp;&nbsp;  <!--“欢迎！”需要设置超链接到用户信息页面。待修改！！-->
+						<a href="../">退出</a>;
+				  	}
+				  	else {
+						<a href="./login.html">登录</a> &nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="./register.html">注册</a>
+				  	} 
+				?>
+			</div>
+		</div>
+	</div>
+
+	<div style="margin-top:100px;"></div>
+	<div id="position" class="auto">
+		<img src="../public/image/发帖图标.png" alt="发帖图标" height="40" width="40">
+		<h1>发帖界面</h1>
+	</div>
+	<div id="publish">
+		<h2>请选择发帖版块</h2>
+		<form method="POST" action="../model/publish_deal.php">
+			<select name="session_name">
+				<option value="1">教师答疑</option>
+				<option value="2">课程交流</option>
+				<option value="3">学习资源</option>
+				<option value="4">校园活动</option>
+			</select>
+			<h2>帖子标题：</h2>
+			<input class="title" placeholder="请输入帖子标题" name="pub_title" type="text" /><br/>
+			<h2>附件</h2>  <!-- 调用后端添加附件功能。待修改！！ -->
+			<a href="#"><img src="../public/image/Attachment.png" alt="附件" height="30" width="30"></a><br/>
+			<textarea name="pub_content" class="content"></textarea>
+			<center><input name="submit" type="image" value="ee" src="../public/image/发帖按钮.png" height="35" width="75"/></center> 
+			<div style="clear:both;"></div>
+		</form>
+	</div>
+
+	<div id="footer" class="auto">
+		<div class="bottom">
+			<a>ZJU交流论坛</a>
+		</div>
+		<div class="copyright">Copyright © 2020 ZJU交流论坛 v1.1.0</div>
+	</div>
+</body>
+</html>

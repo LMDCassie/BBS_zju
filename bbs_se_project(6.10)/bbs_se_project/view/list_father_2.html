@@ -1,0 +1,136 @@
+<?php
+ session_start();
+ // 将页面设置为中国时区
+ date_default_timezone_set('PRC');
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	<title>ZJU交流论坛查看发帖</title>
+	<meta name="keywords" content="关键字列表" />
+	<meta name="description" content="网页描述" />
+	<link rel="stylesheet" type="text/css" href="../public/css/public.css" />
+	<link rel="stylesheet" type="text/css" href="../public/css/list.css" />
+	<style type="text/css"></style>
+	<script type="text/javascript"></script>
+</head>
+
+<body>
+	<div class="header_wrap">
+		<div id="header" class="auto">
+			<div class="logo">ZJU交流论坛</div>
+			<div class="nav">
+				<a class="hover" href="../">首页</a>
+				<a href="./publish.html">发帖</a>
+				<a href="./announcement.html">发公告</a>
+			</div>
+			<div class="serarch">
+				<form>
+					<input class="keyword" type="text" name="keyword" placeholder="搜索一下~" /> <!--需要增加下拉框，按照功能进行帖子检索。待修改！！-->
+					<input class="submit" type="submit" name="submit" value="" />
+				</form>
+			</div>
+
+			<div class="login" style="width: 400px;">
+			<!-- 用户信息登录判断，根据是否登录来显示不同的链接按钮。待修改！！ -->
+				<?php  
+				  	if(isset($_COOKIE['user'])) {
+				  		echo '<a href="./userInfo.php">&nbsp;欢迎会员' . ' ' . $_COOKIE['user'] . '</a>' . ' ' . '<a href="./logout.php?page=list_father">注销</a>';
+				  }else {
+				  	    echo '<a href="./login.php">&nbsp;' . '登录' . '</a>' . ' ' . '<a href="./register.php">注册</a>&nbsp;';
+				} 
+				   ?>
+			</div>
+		</div>
+	</div>
+
+	<div style="margin-top:100px;"></div>
+	<div id="position" class="auto">
+		 <b><a href="../">首页</a> &gt; <a href="./list_father_课程交流.html">课程交流</a></b>
+	</div>
+	<div id="main" class="auto">
+		<div id="left">
+			<center><img src="../public/image/课程交流.png" alt="课程交流" height="80" width="80"></center><br/>
+			<center><font>课程交流</font></center>
+			<div class="box_wrap">
+				<center><div class="num">
+				    今日帖数：<span>6</span>&nbsp;&nbsp;&nbsp;&nbsp;
+				    总帖数：<span>100712</span>
+				</div></center>
+				<div class="pages_wrap">
+					<a class="btn publish" href="./publish.html"></a>
+					<div style="clear:both;"></div>
+				</div>
+			</div>
+			<div style="clear:both;"></div>
+
+			<!-- 帖子内容展示  php动态数据循环li -->
+			<ul class="postsList">
+			<?php while( $row = $result->fetch_assoc() ) : ?>
+				<li>
+					<div class="smallPic">
+						<a href="#">
+							<img width="50" height="50" src="../public/image/头像2.png">
+						</a>
+					</div>
+					<div class="subject">
+						<div class="titleWrap"><a href="#"><?php echo "课程交流"; ?></a>&nbsp;&nbsp;<h2><a href="./show.php?pub_id=<?php echo $row['PID']; ?>"><?php echo $row['PTitle']; ?></a></h2></div>
+						<p>
+							作者：<?php echo $row['POwner']; ?>&nbsp;&nbsp;&nbsp;发布时间：<?php echo date("Y-m-d H:i:s",$row['PTime'] ); ?>&nbsp;&nbsp;&nbsp;最后回复：2020-5-15
+						</p>
+					</div>
+					<div class="count">
+						<p>
+							回复<br /><span>
+								<?php 
+									$pub_id = $row['PID'];
+									$sqls = "select count(*) as sum from Reply where RPostID=$pub_id";
+									$results = $conn->query($sqls);
+									$row_num = $results->fetch_assoc(); 
+									$rowCount = $row_num['sum']; 
+									echo $rowCount;
+								?>
+								</span>
+						</p>
+						<p>
+							点击<br /><span><?php echo $row['PHits']; ?></span>
+						</p>
+					</div>
+					<div style="clear:both;"></div>
+				</li>
+			<?php endWhile; ?>
+			</ul>
+
+			<div class="pages_wrap">
+				<div class="pages">
+					<?php echo $strPage; ?>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+
+		<div id="right">
+			<div class="classList">
+				<div class="title"><h1>版面列表</h1></div>
+				<ul class="listWrap">
+					<li><h1><a href="./list_son_课程交流.html">- 课程交流</a></h1></li>
+					<li><h1><a href="./list_son_教师答疑.html">- 教师答疑</a></h1></li>
+					<li><h1><a href="./list_son_学习资源.html">- 学习资源</a></h1></li>
+					<li><h1><a href="./list_son_信息资讯.html">- 信息资讯</a></h1></li>
+					<li><h1><a href="./list_son_校园活动.html">- 校园活动</a></h1></li>
+				</ul>
+			</div>
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+
+	<div id="footer" class="auto">
+		<div class="bottom">
+			<a>ZJU交流论坛</a>
+		</div>
+		<div class="copyright">Copyright © 2020 ZJU交流论坛 v1.1.0</div>
+	</div>
+</body>
+</html>
+

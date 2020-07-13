@@ -1,0 +1,95 @@
+<?php session_start(); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	<title>ZJU交流论坛首页</title>
+	<meta name="keywords" content="关键字列表" />
+	<meta name="description" content="网页描述" />
+	<link rel="stylesheet" type="text/css" href="./public/css/public.css" />
+	<link rel="stylesheet" type="text/css" href="./public/css/index.css" />
+	<style type="text/css"></style>
+	<script type="text/javascript"></script>
+</head>
+
+<body>
+	<div class="header_wrap">
+		<div id="header" class="auto">
+			<div class="logo">ZJU交流论坛</div>
+			<div class="nav">
+				<a class="hover" href="./">首页</a>
+				<a href="./view/publish.html">发帖</a>
+				<a href="./view/announcement.html">发公告</a>
+			</div>
+			<div class="serarch">
+				<form>
+					<input class="keyword" type="text" name="keyword" placeholder="搜索一下~" /> <!--需要增加下拉框，按照功能进行帖子检索。待修改！！-->
+					<input class="submit" type="submit" name="submit" value="" />
+				</form>
+			</div>
+
+			<div class="login" style="width: 100px;">
+			<!-- 用户信息登录判断，根据是否登录来显示不同的链接按钮。待修改！！ -->
+			<?php  
+			if(isset($_COOKIE['user'])) {
+				echo '<a href="./model/userInfo.php">欢迎！' . ' ' . $_COOKIE['user'] . '</a>&nbsp;&nbsp;&nbsp;&nbsp;' . ' ' . '<a href="./">退出</a>';
+			}else {
+				echo '<a href="./view/login.html">' . '登录' . '</a>&nbsp;&nbsp;&nbsp;&nbsp;' . ' ' . '<a href="./view/register.html">注册</a>';
+	  		} 
+			 ?> 
+			</div>
+		</div>
+	</div>
+	
+	<div style="margin-top:15px;"></div>
+	<center><img src="./public/image/Sky.jpg" alt="Sky" height="250" width="950"></center>
+	<div id="hot" class="auto">
+		<div class="title">重要公告</div>  <!-- 公告显示部分。待修改！！ -->
+		<ul class="newslist">
+			<li><a href="#">[2020.05.20] 520×521 校庆和坛庆对你的爱，我要大声说出来</a></li>
+			<li><a href="#">[2020.05.28] 聊聊回忆杀 | 我在ZJU交流论坛经历的大事件</a></li>
+		</ul>
+		<div style="clear:both;"></div>
+	</div>
+
+	<div class="box auto">
+		<div class="title">热门话题</div>   <!-- 热门话题显示部分。待修改！！ -->
+		<div class="classList">
+			<div style="padding:10px 0;">尽情期待</div>
+		</div>
+	</div>
+
+	<div class="box auto">
+		<div class="title">版面列表</div>
+		<div class="classList">
+			<div class="childBox">
+				<img src="./public/image/课程交流.png" alt="课程交流" height="40" width="40" align="left">
+				<br/><h2>&nbsp;&nbsp;<a href="./view/list_son_课程交流.html">课程交流</a></h2><br/>
+			</div>
+			<div class="childBox">
+				<img src="./public/image/教师答疑.png" alt="教师答疑" height="40" width="40" align="left">
+				<br/><h2>&nbsp;&nbsp;<a href="./view/list_son_教师答疑.html">教师答疑</a></h2><br/>
+			</div>
+			<div class="childBox">
+				<img src="./public/image/学习资源.png" alt="学习资源" height="40" width="40" align="left">
+				<br/><h2>&nbsp;&nbsp;<a href="./view/list_son_学习资源.html">学习资源</a></h2><br/>
+			</div>
+			<div class="childBox">
+				<img src="./public/image/信息资讯.png" alt="信息资讯" height="40" width="40" align="left">
+				<br/><h2>&nbsp;&nbsp;<a href="./view/list_son_信息资讯.html">信息资讯</a></h2><br/>
+			</div>
+			<div class="childBox">
+				<img src="./public/image/校园活动.png" alt="校园活动" height="40" width="40" align="left">
+				<br/><h2>&nbsp;&nbsp;<a href="./view/list_son_校园活动.html">校园活动</a></h2><br/>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+	</div>
+	<div id="footer" class="auto">
+		<div class="bottom">
+			<a>ZJU交流论坛</a>
+		</div>
+		<div class="copyright">Copyright © 2020 ZJU交流论坛 v1.1.0</div>
+	</div>
+</body>
+</html>
